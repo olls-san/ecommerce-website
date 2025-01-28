@@ -3,61 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Panel de administración para gestionar productos">
-    <title>Administración de Productos</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>Agregar Producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="container-fluid">
-        <ul>
-            <li><strong>Administrador</strong></li>
-        </ul>
-        <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="shop.html">Tienda</a></li>
-            <li><a href="admin.html">Administrador</a></li>
-            <li><a href="contact.html">Contacto</a></li>
-        </ul>
-    </nav>
-
     <main class="container">
-        <div class="grid">
-            <section>
-                <hgroup>
-                    <h2>Panel de Administración</h2>
-                    <h3>Gestión de productos</h3>
-                </hgroup>
-                <form action="#" method="POST">
-                    <label for="product-name">Nombre del producto:</label>
-                    <input type="text" id="product-name" name="product-name" placeholder="Nombre del producto" required>
+        <h2>Agregar Producto</h2>
 
-                    <label for="product-price">Precio:</label>
-                    <input type="number" id="product-price" name="product-price" placeholder="Precio del producto" required>
+        <form id="addProductForm">
+            <label for="product-name">Nombre del Producto:</label>
+            <input type="text" id="product-name" name="product-name" placeholder="Nombre del producto" required>
 
-                    <label for="product-image">Imagen del producto:</label>
-                    <input type="url" id="product-image" name="product-image" placeholder="URL de la imagen" required>
+            <label for="product-price">Precio:</label>
+            <input type="number" id="product-price" name="product-price" placeholder="Precio" required>
 
-                    <button type="submit">Añadir Producto</button>
-                </form>
-            </section>
-        </div>
+            <label for="product-image">URL de la Imagen:</label>
+            <input type="url" id="product-image" name="product-image" placeholder="URL de la imagen" required>
+
+            <button type="submit">Agregar Producto</button>
+        </form>
     </main>
 
-    <footer class="container">
-        <small><a href="#">Política de privacidad</a> • <a href="#">Términos de servicio</a></small>
-    </footer>
     <script>
         // Store products in an array
-        let products = [];
+        let products = JSON.parse(localStorage.getItem('products')) || [];
 
         // When the form is submitted
-        document.querySelector('form').addEventListener('submit', function(event) {
+        document.getElementById('addProductForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the page from refreshing
 
             // Get the values from the input fields
-            const productName = document.querySelector('#product-name').value;
-            const productPrice = document.querySelector('#product-price').value;
-            const productImage = document.querySelector('#product-image').value;
+            const productName = document.getElementById('product-name').value;
+            const productPrice = document.getElementById('product-price').value;
+            const productImage = document.getElementById('product-image').value;
 
             // Create a new product object
             const newProduct = {
@@ -73,20 +51,13 @@
             localStorage.setItem('products', JSON.stringify(products));
 
             // Clear the form fields
-            document.querySelector('#product-name').value = '';
-            document.querySelector('#product-price').value = '';
-            document.querySelector('#product-image').value = '';
+            document.getElementById('product-name').value = '';
+            document.getElementById('product-price').value = '';
+            document.getElementById('product-image').value = '';
 
             alert('Producto agregado exitosamente!');
         });
-
-        // Load products from localStorage if any
-        window.onload = function() {
-            const storedProducts = localStorage.getItem('products');
-            if (storedProducts) {
-                products = JSON.parse(storedProducts);
-            }
-        }
     </script>
 </body>
 </html>
+
