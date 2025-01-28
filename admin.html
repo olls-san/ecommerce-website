@@ -46,5 +46,47 @@
     <footer class="container">
         <small><a href="#">Política de privacidad</a> • <a href="#">Términos de servicio</a></small>
     </footer>
+    <script>
+        // Store products in an array
+        let products = [];
+
+        // When the form is submitted
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the page from refreshing
+
+            // Get the values from the input fields
+            const productName = document.querySelector('#product-name').value;
+            const productPrice = document.querySelector('#product-price').value;
+            const productImage = document.querySelector('#product-image').value;
+
+            // Create a new product object
+            const newProduct = {
+                name: productName,
+                price: productPrice,
+                image: productImage
+            };
+
+            // Add the product to the products array
+            products.push(newProduct);
+
+            // Store the products array in localStorage
+            localStorage.setItem('products', JSON.stringify(products));
+
+            // Clear the form fields
+            document.querySelector('#product-name').value = '';
+            document.querySelector('#product-price').value = '';
+            document.querySelector('#product-image').value = '';
+
+            alert('Producto agregado exitosamente!');
+        });
+
+        // Load products from localStorage if any
+        window.onload = function() {
+            const storedProducts = localStorage.getItem('products');
+            if (storedProducts) {
+                products = JSON.parse(storedProducts);
+            }
+        }
+    </script>
 </body>
 </html>

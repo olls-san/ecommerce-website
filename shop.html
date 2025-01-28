@@ -64,5 +64,32 @@
     <footer class="container">
         <small><a href="#">Política de privacidad</a> • <a href="#">Términos de servicio</a></small>
     </footer>
+    <script>
+        // Load products from localStorage when the page loads
+        window.onload = function() {
+            const storedProducts = localStorage.getItem('products');
+            const productContainer = document.querySelector('.grid');
+
+            if (storedProducts) {
+                const products = JSON.parse(storedProducts);
+
+                // Loop through each product and create the HTML for it
+                products.forEach(product => {
+                    const productElement = document.createElement('article');
+
+                    productElement.innerHTML = `
+                        <figure>
+                            <img src="${product.image}" alt="${product.name}">
+                            <figcaption>${product.name} - $${product.price}</figcaption>
+                        </figure>
+                        <p>Un excelente producto disponible en nuestra tienda.</p>
+                        <button role="button">Añadir al carrito</button>
+                    `;
+
+                    productContainer.appendChild(productElement);
+                });
+            }
+        }
+    </script>
 </body>
 </html>
