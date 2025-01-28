@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tu tienda en línea de productos electrónicos">
+    <title>Bienvenido a la Tienda</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Tienda Electrónica</strong></li>
+        </ul>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="shop.html">Tienda</a></li>
+            <li><a href="admin.html">Administrador</a></li>
+            <li><a href="contact.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <div class="grid">
+            <section>
+                <hgroup>
+                    <h2>Bienvenido a la Tienda</h2>
+                    <h3>Explora nuestros productos de tecnología</h3>
+                </hgroup>
+                <p>Encuentra los mejores gadgets y electrónicos a precios increíbles.</p>
+                <figure>
+                    <img src="https://images.unsplash.com/photo-1616446771953-b8f75f2b6b47" alt="Producto destacado">
+                    <figcaption><a href="shop.html">Ver tienda</a></figcaption>
+                </figure>
+            </section>
+        </div>
+    </main>
+
+    <section aria-label="Suscríbete a nuestro boletín">
+        <div class="container">
+            <article>
+                <hgroup>
+                    <h2>Suscríbete a nuestras actualizaciones</h2>
+                    <h3>Recibe novedades sobre nuevos productos</h3>
+                </hgroup>
+                <form class="grid">
+                    <input type="email" id="email" name="email" placeholder="Tu correo electrónico" aria-label="Correo electrónico" required />
+                    <button type="submit" onclick="event.preventDefault()">Suscribirse</button>
+                </form>
+            </article>
+        </div>
+    </section>
+
+    <footer class="container">
+        <small><a href="#">Política de privacidad</a> • <a href="#">Términos de servicio</a></small>
+    </footer>
+</body>
+</html>
