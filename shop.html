@@ -6,6 +6,53 @@
     <meta name="description" content="Compra productos electrónicos de alta calidad">
     <title>Tienda - Productos</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .product-card figcaption {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .product-card p {
+            font-size: 1rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .product-card button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .product-card button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <nav class="container-fluid">
@@ -28,35 +75,7 @@
                     <h3>Compra lo mejor en tecnología</h3>
                 </hgroup>
 
-                <!-- Example Product 1 -->
-                <article>
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1628785076701-5a9abffadf23" alt="Smartphone">
-                        <figcaption>Smartphone Ultra 5G - $999</figcaption>
-                    </figure>
-                    <p>Un teléfono inteligente con las últimas características y rendimiento de alta velocidad.</p>
-                    <button role="button">Añadir al carrito</button>
-                </article>
-
-                <!-- Example Product 2 -->
-                <article>
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1604713870620-c91b0d0e0fe1" alt="Laptop">
-                        <figcaption>Portátil Gamer Pro - $1,499</figcaption>
-                    </figure>
-                    <p>Una laptop de alto rendimiento diseñada para juegos y trabajos exigentes.</p>
-                    <button role="button">Añadir al carrito</button>
-                </article>
-
-                <!-- Example Product 3 -->
-                <article>
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1586132572192-d1f0b7be1965" alt="Smartwatch">
-                        <figcaption>Reloj Inteligente - $199</figcaption>
-                    </figure>
-                    <p>Un reloj inteligente que monitorea tu salud y actividades diarias.</p>
-                    <button role="button">Añadir al carrito</button>
-                </article>
+                <!-- Products will be dynamically inserted here -->
             </section>
         </div>
     </main>
@@ -64,11 +83,12 @@
     <footer class="container">
         <small><a href="#">Política de privacidad</a> • <a href="#">Términos de servicio</a></small>
     </footer>
+
     <script>
         // Load products from localStorage when the page loads
         window.onload = function() {
             const storedProducts = localStorage.getItem('products');
-            const productContainer = document.querySelector('.grid');
+            const productContainer = document.querySelector('.grid section');
 
             if (storedProducts) {
                 const products = JSON.parse(storedProducts);
@@ -76,6 +96,7 @@
                 // Loop through each product and create the HTML for it
                 products.forEach(product => {
                     const productElement = document.createElement('article');
+                    productElement.classList.add('product-card');
 
                     productElement.innerHTML = `
                         <figure>
