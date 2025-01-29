@@ -6,12 +6,106 @@
     <meta name="description" content="Tu tienda en línea de productos electrónicos">
     <title>Bienvenido a la Tienda</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        /* Background Image with Blur */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://files.oaiusercontent.com/file-8cyR5ivC26KPQjniZzK9cL?se=2025-01-29T02%3A15%3A17Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dd6a74c91-93bc-4d81-bbdc-538204109db5.webp&sig=yOQd58oXRFf9owfZUMRKYnkEYLvP9BdJgQ8fzVkreMk%3D') 
+                        no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(5px); /* Blur only the background */
+            z-index: -1; /* Keeps it behind content */
+        }
+
+        /* Add a shadow overlay */
+        .background::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3); /* Dark overlay for slight contrast */
+            box-shadow: inset 0px 0px 50px rgba(0, 0, 0, 0.5); /* Soft shadow effect */
+            z-index: -1;
+        }
+
+        /* Navigation Bar */
+        nav {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2); /* Light transparent background */
+            padding: 15px 0;
+            text-align: center;
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white; /* Ensure text is white */
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hero Content (Directly on the Background) */
+        .content-wrapper {
+            text-align: center;
+            color: white; /* Ensure text is visible */
+            padding: 100px 20px;
+        }
+
+        .hero-content h1,
+        .hero-content h3 {
+            margin: 10px 0;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7); /* Strong shadow for readability */
+        }
+
+        .hero-content .button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s ease;
+            font-weight: bold;
+        }
+
+        .hero-content .button:hover {
+            background-color: #cc5200;
+        }
+    </style>
 </head>
 <body>
-    <nav class="container-fluid">
-        <ul>
-            <li><strong>Tienda Electrónica</strong></li>
-        </ul>
+    <!-- Background (Blurred with Shadow) -->
+    <div class="background"></div>
+
+    <!-- Navigation (On Top, Light) -->
+    <nav>
         <ul>
             <li><a href="index.html">Inicio</a></li>
             <li><a href="shop.html">Tienda</a></li>
@@ -20,39 +114,35 @@
         </ul>
     </nav>
 
-    <main class="container">
-        <div class="grid">
-            <section>
-                <hgroup>
-                    <h2>Bienvenido a la Tienda</h2>
-                    <h3>Explora nuestros productos de tecnología</h3>
-                </hgroup>
-                <p>Encuentra los mejores gadgets y electrónicos a precios increíbles.</p>
-                <figure>
-                    <img src="https://images.unsplash.com/photo-1616446771953-b8f75f2b6b47" alt="Producto destacado">
-                    <figcaption><a href="shop.html">Ver tienda</a></figcaption>
-                </figure>
+    <!-- Content Wrapper (Now Directly on Background) -->
+    <div class="content-wrapper">
+        <div class="hero-content">
+            <h1>Aquí estan los productos que buscas!</h1>
+            <h3>Encuentra precios increibles , para tus Gustos increibles</h3>
+            <h3>En nuestra tienda se encuentran los mejores gadgets, ropa y artículos para el hogar.</h3>
+            <a href="shop.html" class="button">Ir a la Tienda</a>
+        </div>
+
+        <main class="container">
+            <section aria-label="Suscríbete a nuestro boletín">
+                <div class="container">
+                    <article>
+                        <hgroup>
+                            <h2>Suscríbete a nuestras actualizaciones</h2>
+                            <h3>Recibe novedades sobre nuevos productos</h3>
+                        </hgroup>
+                        <form class="grid">
+                            <input type="email" id="email" name="email" placeholder="Tu correo electrónico" aria-label="Correo electrónico" required />
+                            <button type="submit" onclick="event.preventDefault()">Suscribirse</button>
+                        </form>
+                    </article>
+                </div>
             </section>
-        </div>
-    </main>
+        </main>
 
-    <section aria-label="Suscríbete a nuestro boletín">
-        <div class="container">
-            <article>
-                <hgroup>
-                    <h2>Suscríbete a nuestras actualizaciones</h2>
-                    <h3>Recibe novedades sobre nuevos productos</h3>
-                </hgroup>
-                <form class="grid">
-                    <input type="email" id="email" name="email" placeholder="Tu correo electrónico" aria-label="Correo electrónico" required />
-                    <button type="submit" onclick="event.preventDefault()">Suscribirse</button>
-                </form>
-            </article>
-        </div>
-    </section>
-
-    <footer class="container">
-        <small><a href="#">Política de privacidad</a> • <a href="#">Términos de servicio</a></small>
-    </footer>
+        <footer class="container">
+            <small><a href="#">Política de privacidad</a> • <a href="#">Términos de servicio</a></small>
+        </footer>
+    </div>
 </body>
 </html>

@@ -3,9 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Panel de administración para gestionar productos">
-    <title>Administración de Productos</title>
+    <meta name="description" content="Panel de administración para agregar productos">
+    <title>Administrador - Añadir Producto</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        /* Simple Form Styling */
+        .form-container {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 600px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container input, .form-container textarea, .form-container button {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 1rem;
+        }
+
+        .form-container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <nav class="container-fluid">
@@ -21,73 +51,73 @@
     </nav>
 
     <main class="container">
-        <div class="grid">
-            <section>
-                <hgroup>
-                    <h2>Panel de Administración</h2>
-                    <h3>Gestión de productos</h3>
-                </hgroup>
-                <form id="addProductForm">
-                    <label for="product-name">Nombre del Producto:</label>
-                    <input type="text" id="product-name" name="product-name" placeholder="Nombre del producto" required>
-        
-                    <label for="product-price">Precio:</label>
-                    <input type="number" id="product-price" name="product-price" placeholder="Precio" required>
-        
-                    <label for="product-image">URL de la Imagen:</label>
-                    <input type="url" id="product-image" name="product-image" placeholder="URL de la imagen" required>
-        
-                    <label for="product-description">Descripción del Producto:</label>
-                    <textarea id="product-description" name="product-description" placeholder="Descripción del producto" required></textarea>
-        
-                    <button type="submit">Agregar Producto</button>
-                </form>
-            </section>
+        <div class="form-container">
+            <h2>Agregar Producto</h2>
+            <form id="productForm">
+                <label for="productName">Nombre del Producto</label>
+                <input type="text" id="productName" placeholder="Nombre del producto" required>
+
+                <label for="productPrice">Precio</label>
+                <input type="number" id="productPrice" placeholder="Precio" required>
+
+                <label for="productDescription">Descripción</label>
+                <textarea id="productDescription" placeholder="Descripción del producto" required></textarea>
+
+                <label for="productImage">Imagen del Producto</label>
+                <input type="file" id="productImage" accept="image/*" required>
+
+                <button type="submit">Guardar Producto</button>
+            </form>
         </div>
     </main>
-    <script>
-        // Store products in an array
-        let products = JSON.parse(localStorage.getItem('products')) || [];
 
-        // When the form is submitted
-        document.getElementById('addProductForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the page from refreshing
-
-            // Get the values from the input fields
-            const productName = document.getElementById('product-name').value;
-            const productPrice = document.getElementById('product-price').value;
-            const productImage = document.getElementById('product-image').value;
-            const productDescription = document.getElementById('product-description').value;
-
-            // Create a new product object
-            const newProduct = {
-                name: productName,
-                price: productPrice,
-                image: productImage,
-                description: productDescription // Adding description
-            };
-
-            // Add the product to the products array
-            products.push(newProduct);
-
-            // Store the products array in localStorage
-            localStorage.setItem('products', JSON.stringify(products));
-
-            // Clear the form fields
-            document.getElementById('product-name').value = '';
-            document.getElementById('product-price').value = '';
-            document.getElementById('product-image').value = '';
-            document.getElementById('product-description').value = ''; // Clear the description field
-
-            alert('Producto agregado exitosamente!');
-        });
-    </script>
     <footer class="container">
         <small><a href="#">Política de privacidad</a> • <a href="#">Términos de servicio</a></small>
     </footer>
+
+    <script>
+        // Function to convert an image to Base64 format
+        function convertToBase64(file, callback) {
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                callback(reader.result);  // Return the Base64 string
+            };
+            reader.readAsDataURL(file);  // Read file as Data URL (Base64)
+        }
+
+        // Handle form submission and save product data
+        document.getElementById('productForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the default form submission
+
+            const productName = document.getElementById('productName').value;
+            const productPrice = document.getElementById('productPrice').value;
+            const productDescription = document.getElementById('productDescription').value;
+            const productImageInput = document.getElementById('productImage');
+            const productImage = productImageInput.files[0];  // Get the selected file
+
+            if (productImage) {
+                // Convert the image to Base64 and store the product
+                convertToBase64(productImage, function(base64Image) {
+                    const product = {
+                        name: productName,
+                        price: parseFloat(productPrice),
+                        description: productDescription,
+                        image: base64Image  // Store Base64 image string
+                    };
+
+                    // Save product in localStorage (or your preferred storage solution)
+                    let products = JSON.parse(localStorage.getItem('products')) || [];
+                    products.push(product);
+                    localStorage.setItem('products', JSON.stringify(products));  // Save updated products list
+
+                    alert('Producto guardado exitosamente!');
+                    document.getElementById('productForm').reset();  // Reset the form
+                });
+            } else {
+                alert('Por favor selecciona una imagen');
+            }
+        });
+    </script>
 </body>
 </html>
-
-
-
 
